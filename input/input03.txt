@@ -1,0 +1,6 @@
+2
+AA
+BB
+2
+AA BB 5
+BB AA 5

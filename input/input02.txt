@@ -1,0 +1,14 @@
+5
+Fresno
+LA
+SD
+SF
+NYC
+7
+Fresno SD 8
+SD LA 7
+SD NYC 3
+LA NYC 100
+SF Fresno 20
+SF SD 19
+NYC SF 50

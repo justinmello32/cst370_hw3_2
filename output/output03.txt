@@ -1,0 +1,2 @@
+Path:AA->BB->AA
+Cost:10
