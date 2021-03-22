@@ -1,7 +1,11 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <bits/stdc++.h>
+
 
 using namespace std;
+
 
 
 int main()
@@ -9,16 +13,17 @@ int main()
     //Initial Variables
     int vertices;
     int edges;
+    int intMax = 30;
 
     //Temp variables for conversion to int after user input
     string loc1;
     string loc2;
 
     //Vertices/edges information
-    int intLoc1 =0;
+    int intLoc1 = 0;
     int intLoc2 = 0;
-    int cost;
-
+    int distance;
+    
     //Gather number of vertices
     cin >> vertices;
     
@@ -30,6 +35,8 @@ int main()
 
     //Get number of edges
     cin >> edges;
+    
+    vector<vector<int>> graph(vertices, vector<int> (vertices, intMax));
 
     //Gather user input for locations/cost, input conversion.
     for(int i = 0; i < edges ; i++) {
@@ -49,9 +56,37 @@ int main()
         }
 
         //Cin cost for future use.
-        cin >> cost;
+        cin >> distance;
+        graph[intLoc1][intLoc2] = distance;
     }
-
-        return 0;
+    
+    //Calulations
+    vector<int> ver;
+    for (int i = 0; i < graph.size(); i++)
+        if (i != 0)
+            ver.push_back(i);
+            int m_p = intMax; // store minimum weight of a graph
+   do {
+      int cur_pth = 0;
+      int k = 0;
+      for (int i = 0; i < ver.size(); i++) {
+         cur_pth += graph[k][ver[i]];
+         k = ver[i];
+         
+         
+      }
+      cur_pth += graph[k][0];
+      
+      m_p = min(m_p, cur_pth); // to update the value of minimum weight
+      
+   }
+   while (next_permutation(ver.begin(), ver.end()));
+    cout << "Path:";
+    // for(int i = 0; i < ver.size(); i++) {
+    //     cout << ver[i] << "->";
+    // }
+    cout << endl;
+    cout << "Cost:" <<  m_p << endl;
+    return 0;
 }
 
