@@ -32,7 +32,7 @@ int main()
     //Get number of edges
     cin >> edges;
     
-    vector<vector<int>> graph(vertices, vector<int> (vertices, 0));
+    vector<vector<int> > graph(vertices, vector<int> (vertices, 0));
 
     //Gather user input for locations/cost, input conversion.
     //This section works correctly for all user input.
