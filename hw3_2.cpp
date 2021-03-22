@@ -1,19 +1,15 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <bits/stdc++.h>
-
 
 using namespace std;
-
-
 
 int main()
 {
     //Initial Variables
     int vertices;
     int edges;
-    int intMax = 30;
+    int intMax = 100;
 
     //Temp variables for conversion to int after user input
     string loc1;
@@ -36,9 +32,10 @@ int main()
     //Get number of edges
     cin >> edges;
     
-    vector<vector<int>> graph(vertices, vector<int> (vertices, intMax));
+    vector<vector<int>> graph(vertices, vector<int> (vertices, 0));
 
     //Gather user input for locations/cost, input conversion.
+    //This section works correctly for all user input.
     for(int i = 0; i < edges ; i++) {
 
         //Gather first location and adjust to int
@@ -59,34 +56,23 @@ int main()
         cin >> distance;
         graph[intLoc1][intLoc2] = distance;
     }
-    
-    //Calulations
-    vector<int> ver;
-    for (int i = 0; i < graph.size(); i++)
-        if (i != 0)
-            ver.push_back(i);
-            int m_p = intMax; // store minimum weight of a graph
-   do {
-      int cur_pth = 0;
-      int k = 0;
-      for (int i = 0; i < ver.size(); i++) {
-         cur_pth += graph[k][ver[i]];
-         k = ver[i];
-         
-         
-      }
-      cur_pth += graph[k][0];
-      
-      m_p = min(m_p, cur_pth); // to update the value of minimum weight
-      
-   }
-   while (next_permutation(ver.begin(), ver.end()));
-    cout << "Path:";
-    // for(int i = 0; i < ver.size(); i++) {
-    //     cout << ver[i] << "->";
-    // }
-    cout << endl;
-    cout << "Cost:" <<  m_p << endl;
+
+    //Check if if even possible, otherwise return -1
+    for (int i = 0; i < graph.size(); i++) {
+        int emptyValues = 0;
+        for (int j = 0; j < graph.size(); j++) {
+            if(graph[i][j] == 0)
+                emptyValues++;
+            if(emptyValues == graph.size() ) {
+                cout << "Path:" << endl;
+                cout << "Cost:-1" << endl;
+                break;
+            }
+        }
+    }
+
+
+
     return 0;
 }
 
