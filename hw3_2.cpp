@@ -24,9 +24,15 @@ int main()
     cin >> vertices;
     
     //Gather the Cities
-    vector<string> cities(vertices);
+    vector<string> cities;
+    vector<string> path(vertices);
+    vector<int>pos;
+    
     for(int i = 0; i < vertices; i++) {
-        cin >> cities[i];
+        string city;
+        cin >> city;
+        cities.push_back(city);
+        pos.push_back(i);
     }
 
     //Get number of edges
@@ -72,26 +78,28 @@ int main()
     }
 
     //TSP Problem calculation here
-    vector<int> ver;
     int min_path = intMax;
-    for (int i = 0; i < graph.size(); i++)
-        if (i != 0)
-            ver.push_back(i);
-            int m_p = intMax; // store minimum weight of a graph
     do {
-      int cur_pth = 0;
+      int current_path = 0;
       int k = 0;
-      for (int i = 0; i < ver.size(); i++) {
-         cur_pth += graph[k][ver[i]];
-         k = ver[i];
+      for (int i = 0; i < vertices; i++) {
+         current_path += graph[k][pos[i]];
+         k = pos[i];
       }
-      cur_pth += graph[k][0];
-      m_p = min(m_p, cur_pth); // to update the value of minimum weight
+      current_path += graph[k][0];
+      if (current_path < min_path) {
+            min_path = current_path;
+            for (int i = 0; i < vertices; i++) {
+                path[i] = cities[pos[i]];
+            }
+        }
+    } while (next_permutation(pos.begin(), pos.end()));
+
+    cout << "Path:";
+    for (string s : path) {
+        cout << s << "->"; 
     }
-    while (next_permutation(ver.begin(), ver.end()));
-    cout << "COST:" << m_p << endl;
-
-
-    return 0;
+    cout << cities.at(0) << endl;
+    cout << "Cost:" << min_path << endl;
 }
 
