@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 int main()
 {
     //Initial Variables
@@ -73,37 +72,24 @@ int main()
     }
 
     //TSP Problem calculation here
-    // store all vertex apart from source vertex
-    vector<int> vertex;
-    for (int i = 0; i < 4; i++)
-        if (i != 0)
-            vertex.push_back(i);
-
-    // store minimum weight Hamiltonian Cycle.
+    vector<int> ver;
     int min_path = intMax;
+    for (int i = 0; i < graph.size(); i++)
+        if (i != 0)
+            ver.push_back(i);
+            int m_p = intMax; // store minimum weight of a graph
     do {
-
-        // store current Path weight(cost)
-        int current_pathweight = 0;
-
-        // compute current path weight
-        int k = 0;
-        for (int i = 0; i < vertex.size(); i++) {
-            current_pathweight += graph[k][vertex[i]];
-            k = vertex[i];
-        }
-        current_pathweight += graph[k][0];
-
-        // update minimum
-        min_path = min(min_path, current_pathweight);
-
-    } while (
-            next_permutation(vertex.begin(), vertex.end()));
-
-    cout << min_path << endl;
-
-
-
+      int cur_pth = 0;
+      int k = 0;
+      for (int i = 0; i < ver.size(); i++) {
+         cur_pth += graph[k][ver[i]];
+         k = ver[i];
+      }
+      cur_pth += graph[k][0];
+      m_p = min(m_p, cur_pth); // to update the value of minimum weight
+    }
+    while (next_permutation(ver.begin(), ver.end()));
+    cout << "COST:" << m_p << endl;
 
 
     return 0;
